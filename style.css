@@ -36,11 +36,12 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.4;
+  filter: blur(1.5px);
 }
 
 /* ── Navbar ── */
@@ -96,7 +97,7 @@ body {
   padding: 6rem 2rem 4rem;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(0, 255, 70, 0.06) 0%, transparent 60%),
-    rgba(13, 13, 13, 0.85);
+    rgba(13, 13, 13, 0.65);
 }
 
 .hero-content {
@@ -161,7 +162,7 @@ body {
   position: relative;
   z-index: 1;
   padding: 5rem 3rem;
-  background: rgba(26, 26, 26, 0.92);
+  background: rgba(26, 26, 26, 0.7);
 }
 
 .gallery-grid {
@@ -173,7 +174,7 @@ body {
 }
 
 .gallery-card {
-  background: var(--bg-card);
+  background: rgba(34, 34, 34, 0.85);
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -183,7 +184,7 @@ body {
 .gallery-card:hover {
   transform: translateY(-4px);
   border-color: var(--accent);
-  box-shadow: 0 8px 30px rgba(110, 142, 251, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 230, 118, 0.15);
 }
 
 .video-wrapper {
@@ -237,7 +238,7 @@ body {
   z-index: 1;
   padding: 5rem 2rem;
   text-align: center;
-  background: rgba(13, 13, 13, 0.88);
+  background: rgba(13, 13, 13, 0.65);
 }
 
 .contact-details {
@@ -273,7 +274,7 @@ body {
   border-top: 1px solid var(--border);
   color: var(--text-secondary);
   font-size: 0.85rem;
-  background: rgba(13, 13, 13, 0.9);
+  background: rgba(13, 13, 13, 0.7);
 }
 
 /* ── Responsive ── */
