@@ -220,6 +220,26 @@ body {
   text-align: center;
 }
 
+.contact-details {
+  margin-bottom: 1.5rem;
+}
+
+.contact-details p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.contact-details a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-details a:hover {
+  color: var(--accent-hover);
+}
+
 .contact-section .cta-button {
   margin-top: 0.5rem;
 }
