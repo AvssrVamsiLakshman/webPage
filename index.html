@@ -111,6 +111,12 @@
         </div>
       </div>
 
+      <div class="gallery-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/iDqSKfIQ-q4" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -127,6 +133,54 @@
   <footer class="footer">
     <p>&copy; 2026 My Portfolio. All rights reserved.</p>
   </footer>
+
+  <!-- Code Rain Background -->
+  <canvas id="codeRain"></canvas>
+  <script>
+    const canvas = document.getElementById('codeRain');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?/~`import def class return const let var function => {} () [] if else for while break continue print console.log self __init__';
+    const charArray = chars.split('');
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0f0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = charArray[Math.floor(Math.random() * charArray.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Vary green shades for depth
+        const green = Math.floor(Math.random() * 156) + 100;
+        ctx.fillStyle = `rgb(0, ${green}, 0)`;
+        ctx.fillText(text, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 45);
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
+  </script>
 
 </body>
 </html>
