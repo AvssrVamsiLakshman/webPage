@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -43,9 +43,7 @@
 
       <div class="gallery-card">
         <div class="media-wrapper">
-          <a href="https://drive.google.com/file/d/14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY/view" target="_blank" rel="noopener">
             <img src="https://drive.google.com/thumbnail?id=14IBMFQkfWwGdMlA7TcsBCF-geenyVNgY&sz=w1000" alt="Work" loading="lazy">
-          </a>
         </div>
       </div>
 
@@ -57,9 +55,7 @@
 
       <div class="gallery-card">
         <div class="media-wrapper">
-          <a href="https://drive.google.com/file/d/1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO/view" target="_blank" rel="noopener">
             <img src="https://drive.google.com/thumbnail?id=1EA71P19npYWi6IfIYIuxIV0mxOPOD-ZO&sz=w1000" alt="Work" loading="lazy">
-          </a>
         </div>
       </div>
 
@@ -146,6 +142,12 @@
     <p>&copy; 2026 My Portfolio. All rights reserved.</p>
   </footer>
 
+  <!-- Lightbox Modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div class="lightbox-content" id="lightboxContent"></div>
+  </div>
+
   <!-- Code Rain Background -->
   <canvas id="codeRain"></canvas>
   <script>
@@ -164,17 +166,16 @@
     function draw() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0f0';
-      ctx.font = fontSize + 'px monospace';
+      ctx.font = fontSize + 'px "JetBrains Mono", monospace';
 
       for (let i = 0; i < drops.length; i++) {
         const text = charArray[Math.floor(Math.random() * charArray.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Vary green shades for depth
-        const green = Math.floor(Math.random() * 156) + 100;
-        ctx.fillStyle = `rgb(0, ${green}, 0)`;
+        const red = Math.floor(Math.random() * 106) + 150;
+        const green = Math.floor(Math.random() * 30);
+        ctx.fillStyle = `rgb(${red}, ${green}, 0)`;
         ctx.fillText(text, x, y);
 
         if (y > canvas.height && Math.random() > 0.975) {
@@ -191,6 +192,58 @@
       canvas.height = window.innerHeight;
       columns = Math.floor(canvas.width / fontSize);
       drops = Array(columns).fill(1);
+    });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightboxContent');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.gallery-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const img = card.querySelector('.media-wrapper img');
+        const iframe = card.querySelector('.video-wrapper iframe');
+
+        lightboxContent.innerHTML = '';
+
+        if (img) {
+          const bigImg = document.createElement('img');
+          bigImg.src = img.src;
+          bigImg.alt = img.alt;
+          lightboxContent.appendChild(bigImg);
+        } else if (iframe) {
+          const bigIframe = document.createElement('iframe');
+          bigIframe.src = iframe.src;
+          bigIframe.allow = 'autoplay; encrypted-media';
+          bigIframe.allowFullscreen = true;
+          lightboxContent.appendChild(bigIframe);
+        }
+
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxContent.innerHTML = ''; }, 300);
+    }
+
+    lightboxClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
     });
   </script>
 
